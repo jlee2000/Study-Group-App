@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <h1 class="display-4">Your Active Sessions</h1>
+    <table class = "table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Edit Session</th>
+                <th>Deactivate Session</th>
+            </tr>
+        </thead>
+        {% for session in sessions %}
+            <tbody>
+                <tr>
+                    <td>{{session["name"]}}</td>
+                    {% if session["isactive"] == 0 %}
+                        <td>Active</td>
+                    {% else %}
+                        <td>Inactive</td>
+                    {% endif %}
+                    <td><a href="{{url_for('editsession', id=session['id']) }}">Edit Session</a></td>
+                    <td><a href="{{url_for('deactivate', id=session['id']) }}">End Session</a></td>
+                </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+
+{% endblock %}

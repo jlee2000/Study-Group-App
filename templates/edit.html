@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Session
+{% endblock %}
+
+{% block main %}
+    {% for s in sessions %}
+    <form action="/editsession" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="name" id="name" maxlength="16" value="{{s['name']}}" type="text" readonly>
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="description" id="description" value="{{s['description']}}" type="text">
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="building" id="building" value="{{s['building']}}" type="text">
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="city" id="city" type="text" value="Cambridge" readonly>
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="state" id="state" type="text" value="MA" readonly>
+        </div>
+        <input type="hidden" name="sp_id" value="{{sp_id}}">
+        <button class="btn btn-primary" type="submit">Create Session!</button>
+    </form>
+    {% endfor %}
+    <script>
+        document.querySelector("form").onsubmit = function(){
+            if(!document.getElementById("name").value||!document.getElementById("description")||!document.getElementById("building")||!document.getElementById("city")||!document.getElementById("state")){
+                alert("One or more fields is blank");
+                return false;
+            }
+            console.log(document.getElementById("building"));
+            console.log(document.getElementById("state"));
+        };
+    </script>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block main %}
+  <img class="img-fluid" src="https://maps.googleapis.com/maps/api/staticmap?size=1920x1920&maptype=roadmap\
+  &markers=size:mid%7Ccolor:red
+  {% for sesh in studysesh %}
+  %7C{{sesh['location']}}{% endfor %}&key=AIzaSyCKCMZFI5y-Cs9YaeNWKo9AI70zcA5C4Bo" alt="incorrect image">
+{% endblock %}

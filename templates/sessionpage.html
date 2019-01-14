@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div class="row">
+        <div class = "col-md-5"
+    {% for s in sessions %}
+        <hr>
+        <h1 name="title">{{s["name"]}}</h1>
+        <p>Created by {{createdby[0]["username"]}}</p>
+        <h3>
+            Rating
+            <small class="text-muted">{{s["rating"]}} stars</small>
+        </h3>
+        <div class="embed-responsive embed-responsive-4by3">
+            <iframe class = "embed-responsive-item"
+                width="600"
+                height="450"
+                frameborder="0" style="border:0"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCKCMZFI5y-Cs9YaeNWKo9AI70zcA5C4Bo
+                &q={{s['location']}}" allowfullscreen>
+            </iframe>
+        </div>
+
+        <br>
+        <h3>Description</h3>
+        <p>{{s["description"]}}</p>
+    {% endfor %}
+    </div>
+    <div class = "col-md-7">
+        <h2>Leave a review</h2>
+        <form action="/leavereview" method="post">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" id="rating" name="rating" placeholder="Enter a rating between 1 and 5" input type="number" min=1 max=5>
+            </div>
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" id="comment" name="comment" placeholder="Enter a brief description of your study session" type="text">
+            </div>
+            <input type="hidden" name="sp_id" value="{{sp_id}}">
+            <button class="btn btn-primary" type="submit">Submit review</button>
+        </form>
+
+        <hr>
+        <h2>Reviews</h2>
+        {% for review in reviews %}
+            <table class = "table">
+                <thead>
+                    <tr>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{review["comment"]}}</td>
+                        </tr>
+                    </tbody>
+            </table>
+        {% endfor %}
+        </div>
+    </div>
+    <script>
+        document.querySelector("form").onsubmit = function(){
+            if(!document.getElementById("rating").value||!document.getElementById("comment").value){
+                alert("One or more fields is blank");
+                return false;
+            }
+        }
+        </script>
+
+{% endblock %}
